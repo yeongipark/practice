@@ -3,7 +3,11 @@ import "./App.css";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faCheck,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 
 //회사 선택
 function RegisterCompanySearch(props) {
@@ -114,6 +118,11 @@ function RegisterJobSelect(props) {
 
 //개인 정보 선택
 function RegisterMain(props) {
+  //아이디 중복체크 했는지 확인
+  const [idDupCheck, setIdDupCheck] = useState(false);
+
+  const [emailAuth, setEmailAuth] = useState(false);
+
   // 해당 input이 한번이라도 클릭이 되었는지 확인하는 state
   const [focusArr, setFocusArr] = useState({
     firstName: 0,
@@ -211,7 +220,9 @@ function RegisterMain(props) {
             className={
               focusArr["firstName"] == 1 && 회원정보["firstName"] == ""
                 ? "register-red"
-                : ""
+                : focusArr["firstName"] == 1
+                ? "register-blue"
+                : null
             }
             onChange={(e) => {
               changeInfo(e, "firstName");
@@ -233,6 +244,8 @@ function RegisterMain(props) {
             className={
               focusArr["secondName"] == 1 && 회원정보["secondName"] == ""
                 ? "register-red"
+                : focusArr["secondName"] == 1
+                ? "register-blue"
                 : null
             }
           />
@@ -255,9 +268,30 @@ function RegisterMain(props) {
           className={
             focusArr["id"] == 1 && 회원정보["id"].length <= 5
               ? "register-red"
+              : focusArr["id"] == 1 && 회원정보["id"].length >= 6
+              ? "register-blue"
               : null
           }
         />
+        <button
+          className="registerMain-id-dupCheckBtn"
+          onClick={() => {
+            if (!idDupCheck) {
+              setIdDupCheck(true);
+            }
+          }}
+          disabled={idDupCheck}
+        >
+          {idDupCheck ? (
+            <FontAwesomeIcon
+              icon={faCheck}
+              className="registerMain-id-dupCheckIcon"
+            />
+          ) : (
+            "중복확인"
+          )}
+        </button>
+
         {focusArr["id"] == 1 && 회원정보["id"].length <= 5 ? (
           <p>6글자 이상 입력해주세요</p>
         ) : null}
@@ -281,6 +315,11 @@ function RegisterMain(props) {
                 회원정보["pwd"]
               )
                 ? "register-red"
+                : focusArr["pwd"] === 1 &&
+                  /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[A-Z]).{6,}$/.test(
+                    회원정보["pwd"]
+                  )
+                ? "register-blue"
                 : null
             }
           />
@@ -302,14 +341,27 @@ function RegisterMain(props) {
               input클릭확인("pwdCheck");
             }}
             className={
-              focusArr["pwdCheck"] === 1 ||
+              focusArr["pwdCheck"] === 1 &&
               회원정보["pwdCheck"] != 회원정보["pwd"]
                 ? "register-red"
+                : focusArr["pwdCheck"] === 1 &&
+                  회원정보["pwdCheck"] == 회원정보["pwd"]
+                ? "register-blue"
                 : null
             }
           />
-          {focusArr["pwdCheck"] === 1 ||
-          회원정보["pwdCheck"] != 회원정보["pwd"] ? (
+          {console.log(
+            focusArr["pwdCheck"] === 1 &&
+              회원정보["pwdCheck"] != 회원정보["pwd"] &&
+              !/^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[A-Z]).{6,}$/.test(
+                회원정보["pwd"]
+              )
+          )}
+          {focusArr["pwdCheck"] === 1 &&
+          회원정보["pwdCheck"] != 회원정보["pwd"] &&
+          !/^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[A-Z]).{6,}$/.test(
+            회원정보["pwd"]
+          ) ? (
             <p>비밀번호가 일치하지않습니다</p>
           ) : null}
         </div>
@@ -334,9 +386,25 @@ function RegisterMain(props) {
                 회원정보["email"]
               )
                 ? "register-red"
+                : focusArr["email"] === 1 &&
+                  /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}/.test(
+                    회원정보["email"]
+                  )
+                ? "register-blue"
                 : null
             }
           />
+          <button
+            className={`registerMain-email-authBtn ${
+              !/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}/.test(
+                회원정보["email"]
+              )
+                ? "registerMain-email-authBtnNo"
+                : null
+            }`}
+          >
+            인증
+          </button>
           {focusArr["email"] === 1 &&
           !/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}/.test(
             회원정보["email"]
@@ -418,6 +486,13 @@ function Register() {
   let [checked, setChecked] = useState(null); //선택한 회사 저장 변수
   let [직무, 직무변경] = useState(null);
   let [회원가입단계, 회원가입단계변경] = useState(0);
+  function backStage() {
+    if (회원가입단계 == 2) {
+      회원가입단계변경(1);
+    } else if (회원가입단계 == 1) {
+      회원가입단계변경(0);
+    }
+  }
   return (
     <div className="register-modal-wrap">
       <div className="register-modal-whiteBox">
@@ -425,6 +500,19 @@ function Register() {
         <button className="register-modal-close" title="닫기">
           X
         </button>
+
+        {/* 뒤로가기 버튼 */}
+        {(회원가입단계 === 1 || 회원가입단계 === 2) && (
+          <button
+            className="register-modal-back"
+            onClick={() => {
+              backStage();
+            }}
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+        )}
+
         <h2 style={{ marginBottom: "5px" }}>가입하기</h2>
         {/* 회원가입단계 1번(회사선택 부분) */}
         {회원가입단계 == 0 ? (
