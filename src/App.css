@@ -1,38 +1,199 @@
-.App {
-  text-align: center;
+div,
+input {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button {
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.register-modal-wrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.register-modal-whiteBox {
+  position: relative;
+  margin: auto;
+  width: 500px;
+  height: 500px;
+  margin-top: 100px;
+  background-color: white;
+  padding: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.register-modal-close {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: white;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.register-modal-companySearch {
+  width: 100%;
+  height: 35px;
+  background-color: #eee;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.register-modal-companySearch:hover {
+  border: 1px solid grey;
+}
+
+.register-modal-searchIcon {
+  position: absolute;
+  top: 9px;
+  right: 8px;
+  cursor: pointer;
+}
+
+.register-modal-searchResult {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+  height: 280px;
+  background-color: #eee;
+  overflow: scroll;
+}
+
+.register-modal-searchResult-name {
+  height: 35px;
+  border-bottom: 1px solid #696969;
+  padding: 5px;
+}
+
+.register-modal-searchResult-checkbox {
+  position: absolute;
+  right: 5px;
+}
+
+.register-modal-nextBtn {
+  width: 100%;
+  margin-top: 15px;
+  height: 35px;
+  border: none;
+  background-color: #71c9ce;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.register-job-select-select {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  font-size: 20px;
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.register-job-select-select:hover {
+  border: 3px solid black;
+}
+
+.register-job-select-select-nextBtn {
+  width: 100%;
+  height: 35px;
+  border: none;
+  background-color: #71c9ce;
+  color: white;
+  margin-top: 300px;
+}
+
+.registerMain p {
+  margin: 0px;
+  font-size: 12px;
+  color: red;
+  margin-bottom: 5px;
+  margin-top: 3px;
+}
+
+.registerMain input {
+  height: 35px;
+  padding: 10px;
+  margin-bottom: 0px;
+  font-size: 18px;
+}
+
+.registerMain-name-first {
+  float: left;
+  width: 45%;
+  height: 59px;
+}
+
+.registerMain-name-first-pwd {
+  float: isterMain-email left;
+  width: 45%;
+  height: 75px;
+}
+
+.registerMain-name-second {
+  float: right;
+  width: 45%;
+}
+
+.registerMain-id {
+  height: 59px;
+}
+
+.registerMain-id input {
+  width: 100%;
+}
+
+.register-pwd {
+  height: 75px;
+}
+
+.registerMain-email input {
+  width: 100%;
+}
+
+.registerMain-email {
+  height: 113px;
+}
+
+.registerMain-name input {
+  width: 100%;
+}
+
+.registerMain-pwd input {
+  width: 100%;
+}
+
+.registerMain-birthday {
+  display: flex;
+  justify-content: space-between;
+}
+
+.registerMain-birthday div {
+  width: 30%;
+}
+
+.registerMain-birthday select {
+  height: 35px;
+  width: 100%;
+  font-size: 18px;
+}
+
+.registerMain-nextBtn {
+  width: 100%;
+  margin-top: 15px;
+  height: 35px;
+  border: none;
+  background-color: #71c9ce;
+  color: white;
+}
+
+.register-red {
+  border: 5px solid #ff6d6d;
+  margin-bottom: 0px;
 }
