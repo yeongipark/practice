@@ -121,6 +121,7 @@ function RegisterMain(props) {
   //아이디 중복체크 했는지 확인
   const [idDupCheck, setIdDupCheck] = useState(false);
 
+  //이메일 인증버튼 눌렀는지
   const [emailAuth, setEmailAuth] = useState(false);
 
   // 해당 input이 한번이라도 클릭이 되었는지 확인하는 state
@@ -350,13 +351,6 @@ function RegisterMain(props) {
                 : null
             }
           />
-          {console.log(
-            focusArr["pwdCheck"] === 1 &&
-              회원정보["pwdCheck"] != 회원정보["pwd"] &&
-              !/^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[A-Z]).{6,}$/.test(
-                회원정보["pwd"]
-              )
-          )}
           {focusArr["pwdCheck"] === 1 &&
           회원정보["pwdCheck"] != 회원정보["pwd"] &&
           !/^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[A-Z]).{6,}$/.test(

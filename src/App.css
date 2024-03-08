@@ -7,6 +7,10 @@ button {
   cursor: pointer;
 }
 
+input:focus {
+  outline: none;
+}
+
 .register-modal-wrap {
   position: absolute;
   width: 100%;
@@ -30,7 +34,7 @@ button {
 .register-modal-back {
   position: absolute;
   top: 10px;
-  right: 10px;
+  left: 10px;
   background-color: white;
   border: none;
   font-size: 20px;
@@ -40,7 +44,7 @@ button {
 .register-modal-close {
   position: absolute;
   top: 10px;
-  left: 10px;
+  right: 10px;
   background-color: white;
   border: none;
   font-size: 20px;
