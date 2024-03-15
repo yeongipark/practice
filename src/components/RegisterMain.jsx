@@ -1,10 +1,16 @@
 //개인 정보 선택
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-export default function RegisterMain(props) {
+import Spin from "../util/Spin";
+import "../css/register/RegisterMain.css";
+
+export default function RegisterMain({ companyName }) {
   //아이디 중복체크 했는지 확인
   const [idDupCheck, setIdDupCheck] = useState(false);
+
+  //이메일 인증했는지 검사
+  const [emailCheck, setEmailCheck] = useState(false);
 
   //이메일 인증버튼 눌렀는지
   const [emailAuth, setEmailAuth] = useState(false);
@@ -40,7 +46,7 @@ export default function RegisterMain(props) {
   }
 
   //input창 변경시 state 변경함수
-  async function changeInfo(e, name) {
+  function changeInfo(e, name) {
     let obj = { ...회원정보 };
     obj[name] = e.target.value;
     회원정보변경(obj);
@@ -53,6 +59,44 @@ export default function RegisterMain(props) {
       setFocusArr(obj);
     }
   };
+
+  const [triggerTimer, setTriggerTimer] = useState(false);
+
+  // 인증버튼 재전송 함수
+  const handleResend = () => {
+    setTimer(10); // 타이머 초기값으로 재설정
+    setTriggerTimer((prev) => !prev); // triggerTimer 값을 토글하여 useEffect를 다시 실행하도록 함
+    timerfinish.current = 10; // useRef를 초기값으로 재설정
+  };
+
+  // 타이머 시간 변수
+  const [timer, setTimer] = useState(10);
+
+  //처음 마운트될때 실행 안되게 하는 변수
+  const [timerCheck, setTimerCheck] = useState(false);
+  const timerfinish = useRef(10);
+
+  // 타이머
+  useEffect(() => {
+    let timerInterval;
+    if (!timerCheck) {
+      setTimerCheck(true);
+      return;
+    }
+    if (timer === 0) {
+      setEmailAuth(false);
+      clearInterval(timerInterval); // 타이머가 종료되면 clearInterval로 정리
+      return;
+    }
+
+    timerInterval = setInterval(() => {
+      timerfinish.current--;
+      setTimer((prevTimer) => prevTimer - 1);
+    }, 1000);
+
+    // 컴포넌트가 언마운트되면 타이머를 정리
+    return () => clearInterval(timerInterval);
+  }, [triggerTimer, timer]);
 
   // 생년월일 저장 state
   const [selectedDate, setSelectedDate] = useState({
@@ -236,11 +280,9 @@ export default function RegisterMain(props) {
                 : null
             }
           />
+
           {focusArr["pwdCheck"] === 1 &&
-          회원정보["pwdCheck"] != 회원정보["pwd"] &&
-          !/^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[A-Z]).{6,}$/.test(
-            회원정보["pwd"]
-          ) ? (
+          회원정보["pwdCheck"] != 회원정보["pwd"] ? (
             <p>비밀번호가 일치하지않습니다</p>
           ) : null}
         </div>
@@ -281,8 +323,24 @@ export default function RegisterMain(props) {
                 ? "registerMain-email-authBtnNo"
                 : null
             }`}
+            onClick={() => {
+              if (emailAuth) {
+                return;
+              }
+              setEmailAuth(true);
+              handleResend();
+            }}
           >
-            인증
+            {emailCheck ? (
+              <FontAwesomeIcon
+                icon={faCheck}
+                className="registerMain-id-dupCheckIcon"
+              />
+            ) : emailAuth ? (
+              <Spin />
+            ) : (
+              <>인증</>
+            )}
           </button>
           {focusArr["email"] === 1 &&
           !/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}/.test(
@@ -293,19 +351,37 @@ export default function RegisterMain(props) {
         </div>
 
         {/* 인증번호 확인 */}
+
+        {/* 타이머 */}
+        {emailAuth && !emailCheck ? (
+          <p className="registerMain-emailCheck-timer">{`${Math.floor(
+            timer / 60
+          )}:${timer % 60}초`}</p>
+        ) : null}
+        {/* 인증번호창 */}
         <input
           type="number"
           placeholder="인증번호"
-          className={
-            focusArr["emailCheck"] === 1 && 회원정보("emailCheck").length <= 3
-              ? "register-red"
-              : null
-          }
-          disabled
+          className={`${emailCheck ? "register-blue" : null}`}
+          disabled={emailAuth || emailCheck ? false : true}
         />
-        {focusArr["emailCheck"] === 1 && 회원정보("emailCheck").length <= 3 ? (
-          <p>인증번호를 입력해주세요</p>
-        ) : null}
+        <button
+          className={`registerMain-emailCheck-btn ${
+            emailAuth || emailCheck ? null : "none"
+          }`}
+          onClick={() => {
+            setEmailCheck(true);
+          }}
+        >
+          {emailCheck ? (
+            <FontAwesomeIcon
+              icon={faCheck}
+              className="registerMain-id-dupCheckIcon"
+            />
+          ) : (
+            "인증"
+          )}
+        </button>
       </div>
 
       {/* 생년월일 입력 */}
@@ -313,6 +389,7 @@ export default function RegisterMain(props) {
         <div>
           {/* year */}
           <select
+            className={`${selectedDate.year != null ? "register-blue" : null}`}
             value={selectedDate.year}
             onChange={(e) =>
               setSelectedDate({ ...selectedDate, year: e.target.value })
@@ -328,6 +405,7 @@ export default function RegisterMain(props) {
         {/* month */}
         <div>
           <select
+            className={`${selectedDate.month != null ? "register-blue" : null}`}
             value={selectedDate.month}
             onChange={(e) =>
               setSelectedDate({ ...selectedDate, month: e.target.value })
@@ -347,6 +425,7 @@ export default function RegisterMain(props) {
             onChange={(e) =>
               setSelectedDate({ ...selectedDate, day: e.target.value })
             }
+            className={`${selectedDate.day != null ? "register-blue" : null}`}
           >
             <option value="" disabled hidden selected>
               일 선택

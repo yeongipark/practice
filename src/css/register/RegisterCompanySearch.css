@@ -1,0 +1,53 @@
+.register-modal-companySearch {
+  width: 100%;
+  height: 35px;
+  background-color: #eee;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.register-modal-companySearch:hover {
+  border: 1px solid grey;
+}
+
+.register-modal-searchIcon {
+  position: absolute;
+  top: 9px;
+  right: 8px;
+  cursor: pointer;
+}
+
+.register-modal-searchResult {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+  height: 280px;
+  background-color: #eee;
+  overflow: scroll;
+}
+
+.register-modal-searchResult-name {
+  height: 35px;
+  border-bottom: 1px solid #696969;
+  padding: 5px;
+}
+
+.register-modal-searchResult-name:hover {
+  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+}
+
+.register-modal-searchResult-checkbox {
+  position: absolute;
+  right: 5px;
+}
+
+.register-modal-nextBtn {
+  width: 100%;
+  margin-top: 15px;
+  height: 35px;
+  border: none;
+  background-color: #71c9ce;
+  color: white;
+}

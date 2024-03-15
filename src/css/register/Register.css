@@ -1,0 +1,55 @@
+.register-modal-wrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.register-modal-whiteBox {
+  position: relative;
+  margin: auto;
+  width: 500px;
+  height: 500px;
+  margin-top: 100px;
+  background-color: white;
+  padding: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.register-modal-companyName {
+  position: absolute;
+  top: 35px;
+  left: 150px;
+  font-size: 14px;
+  color: grey;
+}
+
+.register-modal-back {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: white;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.register-modal-back:hover {
+  border-bottom: 1px solid black;
+}
+
+.register-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: white;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.register-modal-close:hover {
+  border-bottom: 1px solid black;
+}
