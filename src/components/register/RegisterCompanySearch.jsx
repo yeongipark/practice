@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import "../css/register/RegisterCompanySearch.css";
+import "../../css/register/RegisterCompanySearch.css";
 import axios from "axios";
 
 export default function RegisterCompanySearch(props) {

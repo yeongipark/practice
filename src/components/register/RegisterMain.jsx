@@ -2,8 +2,8 @@
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import Spin from "../util/Spin";
-import "../css/register/RegisterMain.css";
+import Spin from "../../util/Spin";
+import "../../css/register/RegisterMain.css";
 
 export default function RegisterMain({ companyName }) {
   //아이디 중복체크 했는지 확인

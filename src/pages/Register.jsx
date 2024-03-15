@@ -1,5 +1,5 @@
-import RegisterCompanySearch from "../components/RegisterCompanySearch";
-import RegisterMain from "../components/RegisterMain";
+import RegisterCompanySearch from "../components/register/RegisterCompanySearch";
+import RegisterMain from "../components/register/RegisterMain";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
