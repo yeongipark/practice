@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "../css/register/Register.css";
-export default function Register() {
+export default function Register({ setRegisterCheck }) {
   let [checked, setChecked] = useState(null); //
 
   const [companyName, setCompanyName] = useState("");
@@ -19,7 +19,13 @@ export default function Register() {
     <div className="register-modal-wrap">
       <div className="register-modal-whiteBox">
         {/* 닫기버튼 */}
-        <button className="register-modal-close" title="닫기">
+        <button
+          className="register-modal-close"
+          title="닫기"
+          onClick={() => {
+            setRegisterCheck(false);
+          }}
+        >
           X
         </button>
 

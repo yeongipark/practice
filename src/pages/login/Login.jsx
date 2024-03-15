@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import "../../css/login/Login.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Register from "../Register";
 
 export default function Login() {
   const [idValue, setId] = useState("");
   const [pwValue, setPw] = useState("");
+  const [registerCheck, setRegisterCheck] = useState(false);
 
   const saveId = (event) => {
     setId(event.target.value);
@@ -55,6 +57,7 @@ export default function Login() {
   }
   return (
     <div className="login">
+      {registerCheck ? <Register setRegisterCheck={setRegisterCheck} /> : null}
       <div className="Logo"></div>
       <div className="login_box">
         <input
@@ -86,7 +89,14 @@ export default function Login() {
         >
           로그인
         </button>
-        <button className="registration">회원가입</button>
+        <button
+          className="registration"
+          onClick={() => {
+            setRegisterCheck(true);
+          }}
+        >
+          회원가입
+        </button>
         <div className="login_find">
           <button className="login_find_id" onClick={goFind_Id}>
             아이디 찾기

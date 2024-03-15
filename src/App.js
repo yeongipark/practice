@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/user/FindID" element={<FindId />}></Route>
           <Route path="/user/FindPW" element={<FindPW />}></Route>
-          <Route path="/Login" element={<Login />}></Route>
+          <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
         </Routes>
       </BrowserRouter>
