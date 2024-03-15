@@ -1,0 +1,79 @@
+.login {
+  display: flex;
+  flex-direction: row;
+}
+.Logo {
+  width: 30%;
+  height: 400px;
+  background-color: rgb(157, 157, 255);
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  border: 1px solid black;
+  box-shadow: 5px 5px 5px 0px gray;
+}
+.login_box {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 400px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  top: 20%;
+  right: 15%;
+  border: 1px solid black;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 5px 5px 5px 0px gray;
+}
+.login_id {
+  background-color: #d9d9d9;
+  width: 80%;
+  height: 70px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: none;
+}
+.login_pw {
+  background-color: #d9d9d9;
+  width: 80%;
+  height: 70px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: none;
+}
+.login_btn {
+  width: 80%;
+  height: 50px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #bfd8af;
+  border: none;
+  color: #f2f2f2;
+  cursor: pointer;
+}
+.registration {
+  width: 80%;
+  height: 50px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #71c9ce;
+  border: none;
+  color: #f2f2f2;
+  cursor: pointer;
+}
+.login_find {
+  width: 80%;
+  text-align: right;
+}
+.login_find_id {
+  background-color: #ffffff;
+  border: none;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.login_find_pw {
+  background-color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
